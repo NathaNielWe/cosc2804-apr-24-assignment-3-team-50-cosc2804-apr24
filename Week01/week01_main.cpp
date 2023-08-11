@@ -44,6 +44,12 @@ int main(void){
 
     std::cout << "Height: " << test_env.getHeight() << ", Width: " << test_env.getWidth() << std::endl;
 
+    //delete memory
+    for(int i =0; i < envHeight; i++){
+        delete[] envStructure[i];
+    }
+    delete[] envStructure;
+
     return EXIT_SUCCESS;
 }
 
