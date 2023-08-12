@@ -39,7 +39,14 @@ int main(void){
     mcpp::MinecraftConnection mc;
     mc.setPlayerPosition(*start + mcpp::Coordinate(0, 1, 0));
 
-
+    for(int h =0; h < test_env.getHeight(); h++){
+        for(int w = 0; w < test_env.getWidth(); w++){
+            if(envStructure[h][w] == 'x'){
+                mc.setBlock(*start + mcpp::Coordinate(h, 0, w), mcpp::Blocks::BRICKS);
+                mc.setBlock(*start + mcpp::Coordinate(h, 1, w), mcpp::Blocks::BRICKS);
+            }
+        }
+    }
 
     //delete memory
     for(int i =0; i < envHeight; i++){
