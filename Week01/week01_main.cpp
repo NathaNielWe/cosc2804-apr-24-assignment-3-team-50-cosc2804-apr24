@@ -1,12 +1,11 @@
 #include <iostream>
 #include "Env.h"
 #include <mcpp/mcpp.h>
-
-//function declaration
-void ReadEnvSize(int& envHeight, int& envWidth);
-void readEnvStdin(char** EnvStruct, int height, int width);
+#include "Utils.h"
 
 int main(void){
+
+    //Read the height and width
     int envHeight = 0;
     int envWidth = 0;
 
@@ -21,31 +20,24 @@ int main(void){
 
     readEnvStdin(envStructure, envHeight, envWidth);
 
-    // char envStructure[envHeight][envWidth];
-    // char readC;
-    // for (int row = 0; row < envHeight; row++){
-    //     for (int col = 0; col < envWidth; col++){
-    //         if(std::cin.good()){
-    //             std::cin >> readC;
-    //             envStructure[row][col] = readC;
-    //         }
-    //     }
-        
-    // }
-
     for (int row = 0; row < envHeight; row++){
         for (int col = 0; col < envWidth; col++){
             std::cout << envStructure[row][col];
         }
         std::cout << std::endl;
-        
     }
 
     Env test_env(envHeight, envWidth);
     std::cout << "Height: " << test_env.getHeight() << ", Width: " << test_env.getWidth() << std::endl;
 
-    mcpp::Coordinate testCoord(3, 2, 1);
-    std::cout << testCoord.x << std::endl;
+    // Read the start coordinate
+    mcpp::Coordinate* start = NULL;
+    ReadEnvStart(&start);
+    std::cout << start->x << "," << start->y << "," << start->z << std::endl;
+
+    //Construct the environment
+    mcpp::MinecraftConnection mc;
+    mc.setPlayerPosition(*start + mcpp::Coordinate(0, 1, 0));
 
 
 
@@ -55,36 +47,7 @@ int main(void){
     }
     delete[] envStructure;
 
+    delete start;
+
     return EXIT_SUCCESS;
-}
-
-//function definition
-void ReadEnvSize(int& envHeight, int& envWidth){
-    std::cout << "Enter the size of the rectangular Environment (H, W): " << std::endl;
-    std::cin >> envHeight;
-    std::cin >> envWidth;
-}
-
-
-void readEnvStdin(char** EnvStruct, int height, int width){
-    int charsRead = 0;
-    char readC;
-
-    for (int row = 0; row < height; row++){
-        for (int col = 0; col < width; col++){
-            if(std::cin.good()){
-                std::cin >> readC;
-                EnvStruct[row][col] = readC;
-                ++charsRead;
-            }
-        }
-        
-    }
-
-    if (charsRead != (height * width)) {
-        std::cerr   << "ERROR: Only read " 
-                    << charsRead 
-                    << " maze cells - input file incorrectly formatted\n\n";
-    }
-    
 }
