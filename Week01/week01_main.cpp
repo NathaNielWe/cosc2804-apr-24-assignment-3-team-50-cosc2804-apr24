@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Env.h"
+#include <mcpp/mcpp.h>
 
 //function declaration
 void ReadEnvSize(int& envHeight, int& envWidth);
@@ -41,8 +42,12 @@ int main(void){
     }
 
     Env test_env(envHeight, envWidth);
-
     std::cout << "Height: " << test_env.getHeight() << ", Width: " << test_env.getWidth() << std::endl;
+
+    mcpp::Coordinate testCoord(3, 2, 1);
+    std::cout << testCoord.x << std::endl;
+
+
 
     //delete memory
     for(int i =0; i < envHeight; i++){
