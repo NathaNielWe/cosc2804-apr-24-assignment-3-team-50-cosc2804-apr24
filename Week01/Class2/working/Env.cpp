@@ -44,7 +44,7 @@ void Env::setStart(mcpp::Coordinate* start){
     this->start = start;
 }
 
-mcpp::Coordinate* Env::getStart(void){
+mcpp::Coordinate* Env::getStart(void) const{
     return this->start;
 }
 

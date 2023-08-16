@@ -87,6 +87,7 @@ void BuildEnvironment(Env* env){
                 mc.setBlock(*(env->getStart()) + mcpp::Coordinate(h, 0, w), mcpp::Blocks::BRICKS);
                 mc.setBlock(*(env->getStart()) + mcpp::Coordinate(h, 1, w), mcpp::Blocks::BRICKS);
             }
+            env->getEnvStructure()[1][1] = 'y';
         }
     }
 }

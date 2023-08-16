@@ -27,7 +27,9 @@ public:
     void setWidth(unsigned int width);
 
     void setStart(mcpp::Coordinate* start);
-    mcpp::Coordinate* getStart(void);
+
+    //Contract: the caller should not change the coordinate
+    mcpp::Coordinate* getStart(void) const;
 
     void setEnvStructure(char** envStructure);
     char** getEnvStructure(void);
