@@ -11,50 +11,53 @@ int main(void){
 
     ReadEnvSize(envHeight, envWidth);
 
+    // Create instance of Env class
+    Env env(envHeight, envWidth);
+    std::cout << "Height: " << env.getHeight() << ", Width: " 
+                                    << env.getWidth() << std::endl;
+
     // Read the structure of the environment
     char** envStructure;
     envStructure = new char*[envHeight];
     for(int i =0; i < envHeight; i++){
         envStructure[i] = new char[envWidth];
     }
-
     readEnvStdin(envStructure, envHeight, envWidth);
 
-    for (int row = 0; row < envHeight; row++){
-        for (int col = 0; col < envWidth; col++){
-            std::cout << envStructure[row][col];
+    env.setEnvStructure(envStructure);
+
+    for (int row = 0; row < env.getHeight(); row++){
+        for (int col = 0; col < env.getWidth(); col++){
+            std::cout << env.getEnvStructure()[row][col];
         }
         std::cout << std::endl;
     }
 
-    Env test_env(envHeight, envWidth);
-    std::cout << "Height: " << test_env.getHeight() << ", Width: " << test_env.getWidth() << std::endl;
-
+    
     // Read the start coordinate
-    mcpp::Coordinate* start = NULL;
+    mcpp::Coordinate* start = nullptr;
     ReadEnvStart(&start);
     std::cout << start->x << "," << start->y << "," << start->z << std::endl;
 
+    env.setStart(start);
+
     //Construct the environment
     mcpp::MinecraftConnection mc;
-    mc.setPlayerPosition(*start + mcpp::Coordinate(0, 1, 0));
+    mc.setPlayerPosition(*(env.getStart()) + mcpp::Coordinate(0, 1, 0));
 
-    for(int h =0; h < test_env.getHeight(); h++){
-        for(int w = 0; w < test_env.getWidth(); w++){
-            if(envStructure[h][w] == 'x'){
-                mc.setBlock(*start + mcpp::Coordinate(h, 0, w), mcpp::Blocks::BRICKS);
-                mc.setBlock(*start + mcpp::Coordinate(h, 1, w), mcpp::Blocks::BRICKS);
-            }
-        }
-    }
+    env.buildEnv(&mc);
+    
 
     //delete memory
     for(int i =0; i < envHeight; i++){
         delete[] envStructure[i];
+        envStructure = nullptr;
     }
     delete[] envStructure;
+    envStructure = nullptr;
 
     delete start;
+    start = nullptr;
 
     return EXIT_SUCCESS;
 }
