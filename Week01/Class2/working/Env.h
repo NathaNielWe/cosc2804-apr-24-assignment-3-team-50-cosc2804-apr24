@@ -24,8 +24,6 @@ public:
     void setEnvStructure(char** envStructure);
     char** getEnvStructure(void);
 
-    void buildEnv(mcpp::MinecraftConnection* mc);
-
 
 
 private:

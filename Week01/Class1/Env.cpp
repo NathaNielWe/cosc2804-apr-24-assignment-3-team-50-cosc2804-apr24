@@ -57,14 +57,3 @@ char** Env::getEnvStructure(void){
     return this->envStructure;
 }
 
-void Env::buildEnv(mcpp::MinecraftConnection* mc){
-    for(int h =0; h < height; h++){
-        for(int w = 0; w < width; w++){
-            if(envStructure[h][w] == 'x'){
-                mc->setBlock(*start + mcpp::Coordinate(h, 0, w), mcpp::Blocks::BRICKS);
-                mc->setBlock(*start + mcpp::Coordinate(h, 1, w), mcpp::Blocks::BRICKS);
-            }
-        }
-    }
-}
-
