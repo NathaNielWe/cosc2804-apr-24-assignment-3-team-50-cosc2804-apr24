@@ -1,11 +1,16 @@
 #include <iostream>
 #include "Env.h"
 #include <mcpp/mcpp.h>
+#include <exception>
 
 void ReadEnvSize(int& envHeight, int& envWidth){
     std::cout << "Enter the size of the rectangular Environment (H, W): " << std::endl;
     std::cin >> envHeight;
     std::cin >> envWidth;
+
+    if (envHeight == 0 || envWidth == 0){
+        throw std::invalid_argument("Height and width arguments are not correct!");
+    }
 }
 
 void ReadEnvStart(mcpp::Coordinate** start){
@@ -34,12 +39,6 @@ void readEnvStdin(char** EnvStruct, int height, int width){
             }
         }
         
-    }
-
-    if (charsRead != (height * width)) {
-        std::cerr   << "ERROR: Only read " 
-                    << charsRead 
-                    << " maze cells - input file incorrectly formatted\n\n";
     }
     
 }

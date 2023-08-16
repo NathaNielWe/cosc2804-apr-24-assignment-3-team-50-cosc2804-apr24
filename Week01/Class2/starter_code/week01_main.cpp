@@ -3,6 +3,11 @@
 #include <mcpp/mcpp.h>
 #include "Utils.h"
 
+/*
+This code has some deficiencies. We will fix them during the session
+*/
+
+
 int main(void){
 
     //Read the height and width

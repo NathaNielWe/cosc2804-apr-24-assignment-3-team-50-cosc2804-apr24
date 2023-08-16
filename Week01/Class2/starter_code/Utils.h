@@ -35,11 +35,5 @@ void readEnvStdin(char** EnvStruct, int height, int width){
         }
         
     }
-
-    if (charsRead != (height * width)) {
-        std::cerr   << "ERROR: Only read " 
-                    << charsRead 
-                    << " maze cells - input file incorrectly formatted\n\n";
-    }
     
 }

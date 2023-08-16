@@ -2,6 +2,8 @@
 #include "Env.h"
 #include <mcpp/mcpp.h>
 #include "Utils.h"
+#include <exception>
+
 
 int main(void){
 
