@@ -3,7 +3,7 @@
 #include <mcpp/mcpp.h>
 #include <exception>
 
-void ReadEnvSize(int& envHeight, int& envWidth){
+void ReadEnvSize(unsigned int& envHeight, unsigned int& envWidth){
 
     std::cout << "Enter the size of the rectangular Environment (H, W): " << std::endl;
     std::cin >> envHeight;
@@ -47,12 +47,12 @@ void ReadEnvStart(mcpp::Coordinate** start){
 }
 
 
-void readEnvStdin(char** EnvStruct, int height, int width){
-    int charsRead = 0;
+void readEnvStdin(char** EnvStruct, unsigned int height, unsigned int width){
+    unsigned int charsRead = 0;
     char readC;
 
-    for (int row = 0; row < height; row++){
-        for (int col = 0; col < width; col++){
+    for (unsigned int row = 0; row < height; row++){
+        for (unsigned int col = 0; col < width; col++){
             if(std::cin.good()){
                 std::cin >> readC;
                 if(readC == 'x' || readC == '.'){
@@ -71,4 +71,22 @@ void readEnvStdin(char** EnvStruct, int height, int width){
         throw std::invalid_argument(errorString);
     }
     
+}
+
+
+
+//Contract: expects the env->getEnvStructure() to return a 2D array containing 'x' 
+// and '.'. 
+void BuildEnvironment(Env* env){
+    mcpp::MinecraftConnection mc;
+    mc.setPlayerPosition(*(env->getStart()) + mcpp::Coordinate(0, 1, 0));
+    
+    for(unsigned int h =0; h < env->getHeight(); h++){
+        for(unsigned int w = 0; w < env->getWidth(); w++){
+            if((env->getEnvStructure())[h][w] == 'x'){
+                mc.setBlock(*(env->getStart()) + mcpp::Coordinate(h, 0, w), mcpp::Blocks::BRICKS);
+                mc.setBlock(*(env->getStart()) + mcpp::Coordinate(h, 1, w), mcpp::Blocks::BRICKS);
+            }
+        }
+    }
 }

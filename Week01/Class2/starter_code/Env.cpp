@@ -40,15 +40,17 @@ void Env::setWidth(int width){
 }
 
 
+//Identify is there are any issues
 void Env::setStart(mcpp::Coordinate* start){
     this->start = start;
 }
+
 
 mcpp::Coordinate* Env::getStart(void){
     return this->start;
 }
 
-
+//Identify is there are any issues
 void Env::setEnvStructure(char** envStructure){
     this->envStructure = envStructure;
 }

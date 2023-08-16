@@ -3,6 +3,12 @@
 
 #include <mcpp/mcpp.h>
 
+/*
+The implimentation of the class below has some issues. 
+We will be fixing along the way. Do not assume correctness.
+*/
+
+
 class Env
 {
 public:
