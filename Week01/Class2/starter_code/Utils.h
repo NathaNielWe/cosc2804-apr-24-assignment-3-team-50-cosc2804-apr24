@@ -37,3 +37,18 @@ void readEnvStdin(char** EnvStruct, int height, int width){
     }
     
 }
+
+
+void BuildEnvironment(Env* env){
+    mcpp::MinecraftConnection mc;
+    mc.setPlayerPosition(*(env->getStart()) + mcpp::Coordinate(0, 1, 0));
+    
+    for(int h =0; h < env->getHeight(); h++){
+        for(int w = 0; w < env->getWidth(); w++){
+            if((env->getEnvStructure())[h][w] == 'x'){
+                mc.setBlock(*(env->getStart()) + mcpp::Coordinate(h, 0, w), mcpp::Blocks::BRICKS);
+                mc.setBlock(*(env->getStart()) + mcpp::Coordinate(h, 1, w), mcpp::Blocks::BRICKS);
+            }
+        }
+    }
+}
