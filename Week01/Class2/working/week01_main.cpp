@@ -50,6 +50,37 @@ int main(void){
     
         //Construct the environment
         BuildEnvironment(&env);
+
+        //Testing build
+        std::cout << std::endl;
+        std::cout << "Enter the region to check (startx starty startz height width):" << std::endl;
+        int startx, starty, startz; 
+        unsigned int hgt, wdt;
+
+        std::cin >> startx;
+        std::cin >> starty;
+        std::cin >> startz;
+        std::cin >> hgt;
+        std::cin >> wdt;
+
+        mcpp::MinecraftConnection mc;
+        for(unsigned int h = 0; h<hgt; h++){
+            for(unsigned int w = 0; w<wdt; w++){
+                mcpp::BlockType block1 = mc.getBlock(mcpp::Coordinate(startx + h,starty, startz+w));
+                mcpp::BlockType block2 = mc.getBlock(mcpp::Coordinate(startx + h,starty+1, startz+w));
+                if( block1 == mcpp::Blocks::BRICKS && block2 == mcpp::Blocks::BRICKS){
+                    std::cout << 'b';
+                }else if (block1 == mcpp::Blocks::AIR && block2 == mcpp::Blocks::AIR){
+                    std::cout << 'a';
+                }else{
+                    std::cout << 'e';
+                }
+            }
+            std::cout << std::endl;
+
+        }
+
+
         
 
         //delete memory
