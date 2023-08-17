@@ -20,8 +20,8 @@ int main(void){
 
         // Create instance of Env class
         Env env(envHeight, envWidth);
-        std::cout << "Height: " << env.getHeight() << ", Width: " 
-                                        << env.getWidth() << std::endl;
+        // std::cout << "Height: " << env.getHeight() << ", Width: " 
+        //                                 << env.getWidth() << std::endl;
 
         // Read the structure of the environment
         char** envStructure;
@@ -44,7 +44,7 @@ int main(void){
         // Read the start coordinate
         mcpp::Coordinate* start = nullptr;
         ReadEnvStart(&start);
-        std::cout << start->x << "," << start->y << "," << start->z << std::endl;
+        // std::cout << start->x << "," << start->y << "," << start->z << std::endl;
 
         env.setStart(start);
     
