@@ -20,8 +20,9 @@ public:
     ~Env();
 
     //other methods
-    unsigned int getHeight(void);
-    unsigned int getWidth(void);
+    // Contract: should not change the contents of the Env
+    unsigned int getHeight(void) const;
+    unsigned int getWidth(void) const;
 
     void setHeight(unsigned int height);
     void setWidth(unsigned int width);
@@ -32,7 +33,7 @@ public:
     mcpp::Coordinate* getStart(void) const;
 
     void setEnvStructure(char** envStructure);
-    char** getEnvStructure(void);
+    char** getEnvStructure(void) const;
 
 
 

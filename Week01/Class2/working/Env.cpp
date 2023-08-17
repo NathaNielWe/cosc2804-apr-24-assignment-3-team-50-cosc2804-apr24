@@ -23,11 +23,11 @@ Env::~Env()
 }
 
 
-unsigned int Env::getHeight(void){
+unsigned int Env::getHeight(void) const {
     return this->height;
 }
 
-unsigned int Env::getWidth(void){
+unsigned int Env::getWidth(void) const {
     return this->width;
 }
 
@@ -53,7 +53,7 @@ void Env::setEnvStructure(char** envStructure){
     this->envStructure = envStructure;
 }
 
-char** Env::getEnvStructure(void){
+char** Env::getEnvStructure(void) const{
     return this->envStructure;
 }
 
