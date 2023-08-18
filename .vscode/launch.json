@@ -1,0 +1,12 @@
+{
+  "configurations": [
+  {
+    "type": "lldb",
+    "request": "launch",
+    "name": "Week01_example",
+    "program": "/workspaces/COSC2804_Examples/Week02/Class4/working/week01_example",
+    "args": [],
+    "cwd": "/workspaces/COSC2804_Examples/Week02/Class4/working/"
+  }
+  ]
+}

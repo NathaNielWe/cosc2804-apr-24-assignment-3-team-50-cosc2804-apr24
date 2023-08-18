@@ -34,10 +34,25 @@ int main(void){
         ReadEnvStart(&start);
 
         // Create instance of Env class
+        // Ownership of start, envStructure passed to env
         Env env(envHeight, envWidth, envStructure, start);
-    
+        envStructure = nullptr;
+        start = nullptr;
+        
         //Construct the environment
         BuildEnvironment(&env);
+
+
+        //Make a copy and build at 4868 71 4349
+        Env env2(env);
+        start = new mcpp::Coordinate(4868, 71, 4349);
+        env2.setStart(start);
+        start = nullptr;
+
+
+
+    
+
 
         #ifdef TESTING_ON
         //Testing build
@@ -69,20 +84,7 @@ int main(void){
 
         }
         #endif
-
-
         
-
-        //delete memory
-        for(unsigned int i =0; i < envHeight; i++){
-            delete[] envStructure[i];
-            envStructure[i] = nullptr;
-        }
-        delete[] envStructure;
-        envStructure = nullptr;
-
-        delete start;
-        start = nullptr;
 
     }catch(std::invalid_argument& e){
         std::cout << "Invalid argument: " << e.what() << std::endl;

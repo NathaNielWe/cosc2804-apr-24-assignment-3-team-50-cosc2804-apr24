@@ -12,13 +12,17 @@ We will be fixing along the way. Do not assume correctness.
 class Env
 {
 public:
-    /*
-    Constructors
-    */
+   
+    // Constructors
     Env();
+    /*
+    Construct an Env object
+    Contract: Takes ownership of envStructure and start
+    */
     Env(unsigned int height, 
         unsigned int width, 
         char** envStructure, mcpp::Coordinate* start);
+    Env(const Env& other);
     ~Env();
 
     //other methods
@@ -29,11 +33,19 @@ public:
     void setHeight(unsigned int height);
     void setWidth(unsigned int width);
 
+    /*
+    Replace the start coordinate of the instnace with the 
+    incomming start coordinate
+    */
     void setStart(mcpp::Coordinate* start);
-    mcpp::Coordinate* getStart(void) const;
+    const mcpp::Coordinate* getStart(void) const;
 
+    /*
+    Replace the structure of the instnace with the 
+    incomming structure
+    */
     void setEnvStructure(char** envStructure);
-    char** getEnvStructure(void) const;
+    const char** getEnvStructure(void) const;
 
 
 

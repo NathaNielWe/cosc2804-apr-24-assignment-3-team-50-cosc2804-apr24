@@ -19,9 +19,29 @@ Env::Env(unsigned int height,
     this->start = start;
 }
 
+Env::Env(const Env& other):
+                        height(other.height),
+                        width(other.width)
+{
+    this->envStructure = other.envStructure;
+    this->start = other.start;
+}
+
 Env::~Env()
 {
-    //TODO
+    if(envStructure != nullptr){
+        for(unsigned int i =0; i < height; i++){
+            delete[] envStructure[i];
+            envStructure[i] = nullptr;
+        }
+        delete[] envStructure;
+        envStructure = nullptr;
+    }
+
+    if(start != nullptr){
+        delete start;
+        start = nullptr;
+    }
 }
 
 
@@ -43,19 +63,28 @@ void Env::setWidth(unsigned int width){
 
 //Identify is there are any issues
 void Env::setStart(mcpp::Coordinate* start){
+    if(this->start != nullptr){
+        delete this->start;
+    }
     this->start = start;
 }
 
-mcpp::Coordinate* Env::getStart(void) const{
-    return this->start;
+const mcpp::Coordinate* Env::getStart(void) const{
+    return (const mcpp::Coordinate*)this->start;
 }
 
 //Identify is there are any issues
 void Env::setEnvStructure(char** envStructure){
+    if(this->envStructure != nullptr){
+        for(unsigned int i =0; i < height; i++){
+            delete[] this->envStructure[i];
+        }
+        delete[] this->envStructure;
+    }
     this->envStructure = envStructure;
 }
 
-char** Env::getEnvStructure(void) const{
-    return this->envStructure;
+const char** Env::getEnvStructure(void) const{
+    return (const char**)this->envStructure;
 }
 
