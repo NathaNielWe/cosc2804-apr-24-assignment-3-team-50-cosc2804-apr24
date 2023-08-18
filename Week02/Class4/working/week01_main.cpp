@@ -3,6 +3,7 @@
 #include <mcpp/mcpp.h>
 #include "Utils.h"
 #include <exception>
+#include <random>
 
 //#define TESTING_ON
 
@@ -43,15 +44,39 @@ int main(void){
         BuildEnvironment(&env);
 
 
-        //Make a copy and build at 4868 71 4349
+        //Make a copy and build at c
         Env env2(env);
         start = new mcpp::Coordinate(4868, 71, 4349);
         env2.setStart(start);
         start = nullptr;
 
         BuildEnvironment(&env2);
+        start = new mcpp::Coordinate(4868, 71, 4349);
+        envStructure = new char*[envHeight];
+        for(unsigned int i =0; i < envHeight; i++){
+            envStructure[i] = new char[envWidth];
+        }
 
-    
+        //initialize values randomly
+        int seed = 100;
+        int min = 0;
+        int max = 1;
+        std::default_random_engine engine(seed);
+        std::uniform_int_distribution<int> uniform_dist(min, max);
+
+        for(unsigned int h =0; h < envHeight; h++){
+            for(unsigned int w = 0; w < height; w++){
+                this->envStructure[h][w] = other.envStructure[h][w];
+            }
+        }
+
+        Env env3(envHeight, envWidth, envStructure, start);
+        envStructure = nullptr;
+        start = nullptr;
+        BuildEnvironment(&env);
+
+
+        //Buidl a random structure at 4828 71 4389
 
 
         #ifdef TESTING_ON
