@@ -50,7 +50,7 @@ void ReadEnvStart(mcpp::Coordinate** start){
 void readEnvStdin(char** EnvStruct, unsigned int height, unsigned int width){
     unsigned int charsRead = 0;
     char readC;
-
+    std::cout << "Enter structure: " << std::endl;
     for (unsigned int row = 0; row < height; row++){
         for (unsigned int col = 0; col < width; col++){
             if(std::cin.good()){

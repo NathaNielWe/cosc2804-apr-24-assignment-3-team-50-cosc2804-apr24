@@ -49,7 +49,7 @@ int main(void){
         env2.setStart(start);
         start = nullptr;
 
-
+        BuildEnvironment(&env2);
 
     
 

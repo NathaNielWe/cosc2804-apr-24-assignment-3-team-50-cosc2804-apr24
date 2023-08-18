@@ -23,8 +23,18 @@ Env::Env(const Env& other):
                         height(other.height),
                         width(other.width)
 {
-    this->envStructure = other.envStructure;
-    this->start = other.start;
+    this->envStructure = new char*[height];
+    for(unsigned int i =0; i < height; i++){
+        envStructure[i] = new char[width];
+    }
+
+    for(unsigned int h =0; h < height; h++){
+        for(unsigned int w = 0; w < height; w++){
+            this->envStructure[h][w] = other.envStructure[h][w];
+        }
+    }
+
+    this->start = new mcpp::Coordinate(*(other.start));
 }
 
 Env::~Env()
