@@ -9,12 +9,14 @@ Env::Env()
     start = nullptr;
 }
 
-Env::Env(unsigned int height, unsigned int width):
+Env::Env(unsigned int height, 
+        unsigned int width, 
+        char** envStructure, mcpp::Coordinate* start):
                         height(height),
                         width(width)
 {
-    this->envStructure = nullptr;
-    this->start = nullptr;
+    this->envStructure = envStructure;
+    this->start = start;
 }
 
 Env::~Env()

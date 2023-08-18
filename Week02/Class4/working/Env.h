@@ -12,15 +12,17 @@ We will be fixing along the way. Do not assume correctness.
 class Env
 {
 public:
-    //constructors and deconstructors
+    /*
+    Constructors
+    */
     Env();
-
-    //Contract: expects an integer grater than 0
-    Env(unsigned int height, unsigned int width);
+    Env(unsigned int height, 
+        unsigned int width, 
+        char** envStructure, mcpp::Coordinate* start);
     ~Env();
 
     //other methods
-    // Contract: should not change the contents of the Env
+
     unsigned int getHeight(void) const;
     unsigned int getWidth(void) const;
 
@@ -28,8 +30,6 @@ public:
     void setWidth(unsigned int width);
 
     void setStart(mcpp::Coordinate* start);
-
-    //Contract: the caller should not change the coordinate
     mcpp::Coordinate* getStart(void) const;
 
     void setEnvStructure(char** envStructure);
@@ -38,7 +38,6 @@ public:
 
 
 private:
-    /* data */
     unsigned int height;
     unsigned int width;
 

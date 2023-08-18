@@ -4,6 +4,8 @@
 #include "Utils.h"
 #include <exception>
 
+//#define TESTING_ON
+
 /*
 The code below has some issues.
 We will be fixing along the way. Do not assume correctness.
@@ -16,12 +18,8 @@ int main(void){
     unsigned int envWidth = 0;
 
     try{
+        //Read env size
         ReadEnvSize(envHeight, envWidth);
-
-        // Create instance of Env class
-        Env env(envHeight, envWidth);
-        // std::cout << "Height: " << env.getHeight() << ", Width: " 
-        //                                 << env.getWidth() << std::endl;
 
         // Read the structure of the environment
         char** envStructure;
@@ -31,26 +29,17 @@ int main(void){
         }
         readEnvStdin(envStructure, envHeight, envWidth);
 
-        env.setEnvStructure(envStructure);
-
-        for (unsigned int row = 0; row < env.getHeight(); row++){
-            for (unsigned int col = 0; col < env.getWidth(); col++){
-                std::cout << env.getEnvStructure()[row][col];
-            }
-            std::cout << std::endl;
-        }
-
-        
         // Read the start coordinate
         mcpp::Coordinate* start = nullptr;
         ReadEnvStart(&start);
-        // std::cout << start->x << "," << start->y << "," << start->z << std::endl;
 
-        env.setStart(start);
+        // Create instance of Env class
+        Env env(envHeight, envWidth, envStructure, start);
     
         //Construct the environment
         BuildEnvironment(&env);
 
+        #ifdef TESTING_ON
         //Testing build
         std::cout << std::endl;
         std::cout << "Enter the region to check (startx starty startz height width):" << std::endl;
@@ -79,6 +68,7 @@ int main(void){
             std::cout << std::endl;
 
         }
+        #endif
 
 
         
