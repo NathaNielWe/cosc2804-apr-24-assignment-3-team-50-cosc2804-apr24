@@ -7,6 +7,10 @@
 
 //#define TESTING_ON
 
+#define MAX_SIZE 10
+#define MIN_SIZE 5
+#define SEED 100
+
 /*
 The code below has some issues.
 We will be fixing along the way. Do not assume correctness.
@@ -51,32 +55,39 @@ int main(void){
         start = nullptr;
 
         BuildEnvironment(&env2);
-        start = new mcpp::Coordinate(4868, 71, 4349);
+        
+
+        //Buidl a random structure at 4828 71 4389
+        start = new mcpp::Coordinate(4828, 71, 4389);
+
+        //initialize values randomly
+        std::default_random_engine engine(SEED);
+        std::uniform_int_distribution<int> size_dist(MIN_SIZE, MAX_SIZE);
+        
+
+        envHeight = size_dist(engine);
+        envWidth = size_dist(engine);
+        std::cout << "Random env size (H, W): " << envHeight << ", " << envWidth << std::endl;
+
         envStructure = new char*[envHeight];
         for(unsigned int i =0; i < envHeight; i++){
             envStructure[i] = new char[envWidth];
         }
 
-        //initialize values randomly
-        int seed = 100;
-        int min = 0;
-        int max = 1;
-        std::default_random_engine engine(seed);
-        std::uniform_int_distribution<int> uniform_dist(min, max);
-
+        std::uniform_int_distribution<int> block_dist(0, 1);
         for(unsigned int h =0; h < envHeight; h++){
-            for(unsigned int w = 0; w < height; w++){
-                this->envStructure[h][w] = other.envStructure[h][w];
+            for(unsigned int w = 0; w < envWidth; w++){
+                envStructure[h][w] = block_dist(engine);
             }
         }
 
         Env env3(envHeight, envWidth, envStructure, start);
         envStructure = nullptr;
         start = nullptr;
-        BuildEnvironment(&env);
+        BuildEnvironment(&env3);
 
 
-        //Buidl a random structure at 4828 71 4389
+        
 
 
         #ifdef TESTING_ON
