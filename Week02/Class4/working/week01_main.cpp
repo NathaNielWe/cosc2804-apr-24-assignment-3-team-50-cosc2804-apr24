@@ -9,7 +9,7 @@
 
 #define MAX_SIZE 10
 #define MIN_SIZE 5
-#define SEED 100
+#define SEED 101
 
 /*
 The code below has some issues.
@@ -58,7 +58,7 @@ int main(void){
         
 
         //Buidl a random structure at 4828 71 4389
-        start = new mcpp::Coordinate(4828, 71, 4389);
+        start = new mcpp::Coordinate(4858, 71, 4359);
 
         //initialize values randomly
         std::default_random_engine engine(SEED);
@@ -77,7 +77,13 @@ int main(void){
         std::uniform_int_distribution<int> block_dist(0, 1);
         for(unsigned int h =0; h < envHeight; h++){
             for(unsigned int w = 0; w < envWidth; w++){
-                envStructure[h][w] = block_dist(engine);
+                int block_type = block_dist(engine);
+                if(block_type == 0){
+                    envStructure[h][w] = 'x';
+                }else{
+                    envStructure[h][w] = '.';
+                }
+                
             }
         }
 
