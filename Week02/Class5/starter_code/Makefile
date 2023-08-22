@@ -5,7 +5,7 @@ all: class5_example
 clean:
 	rm -f class5_example *.o
 
-class5_example: class5_main.o
+class5_example: Field.o class5_main.o
 	g++ -Wall -Werror -std=c++17 -g -O -o $@ $^ -lmcpp
 
 %.o: %.cpp
