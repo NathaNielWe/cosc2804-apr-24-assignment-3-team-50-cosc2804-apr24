@@ -9,7 +9,7 @@ void ReadFieldParameters(mcpp::Coordinate& basePoint, unsigned int& xLength, uns
     std::cin >> xLength;
     std::cin >> zLength;
 
-    if (xLength == 0 || zLength == 0){
+    if (xLength < 4 || zLength < 4){
         throw std::invalid_argument("Height and width arguments are not correct!");
     }
 

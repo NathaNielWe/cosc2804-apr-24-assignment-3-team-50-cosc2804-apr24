@@ -1,7 +1,6 @@
 #include "Field.h"
 #include <random>
-
-#define SEED 100
+#include <chrono>
 
 Field::Field(mcpp::Coordinate basePoint, unsigned int xLength, unsigned int zLength)
 {
@@ -12,30 +11,46 @@ Field::Field(mcpp::Coordinate basePoint, unsigned int xLength, unsigned int zLen
     this->xLength = xLength;
     this->zLength = zLength;
 
+    SetupField();
 }
 
 Field::~Field()
 {
+    eraseField();
+    mcpp::MinecraftConnection mc;
+    mc.setBlock(treasureLoc + mcpp::Coordinate(0,1,0), mcpp::Blocks::AIR);
+}
+
+void Field::resetField(void){
+
+    eraseField();
+    
+    mcpp::MinecraftConnection mc;
+    mc.setBlock(treasureLoc + mcpp::Coordinate(0,1,0), mcpp::Blocks::AIR);
+
+    SetupField();
+
 }
 
 void Field::SetupField(void){
 
     mcpp::MinecraftConnection mc;
-    mc.setPlayerPosition(basePoint + mcpp::Coordinate(0, 1, 0));
+    // mc.setPlayerPosition(basePoint + mcpp::Coordinate(0, 1, 0));
 
     //build fence
     BuildFence(mc);
 
+    std::random_device r;
+
     // Randomly set the treasure
-    std::default_random_engine engine(SEED);
+    std::default_random_engine engine(r());
     std::uniform_int_distribution<int> xLength_dist(1, xLength-1);
     std::uniform_int_distribution<int> zLength_dist(1, zLength-1);
 
     treasureLoc.x = basePoint.x + xLength_dist(engine);
     treasureLoc.z = basePoint.z + zLength_dist(engine);
-    treasureLoc.y = mc.getHeight(treasureLoc.x, treasureLoc.z)+1;
+    treasureLoc.y = mc.getHeight(treasureLoc.x, treasureLoc.z);
     mc.setBlock(treasureLoc + mcpp::Coordinate(0,1,0), mcpp::Blocks::GOLD_BLOCK);
-
 
 }
 
@@ -47,10 +62,12 @@ void Field::BuildFence(mcpp::MinecraftConnection& mc){
         temp.x += i;
         temp.y = mc.getHeight(temp.x, temp.z)+1;
         mc.setBlock(temp, mcpp::Blocks::BIRCH_FENCE);
+        mc.setBlock(temp + mcpp::Coordinate(0,1,0), mcpp::Blocks::BIRCH_FENCE);
 
         temp.z += zLength;
         temp.y = mc.getHeight(temp.x, temp.z)+1;
         mc.setBlock(temp, mcpp::Blocks::BIRCH_FENCE);
+        mc.setBlock(temp + mcpp::Coordinate(0,1,0), mcpp::Blocks::BIRCH_FENCE);
 
     }
 
@@ -60,19 +77,92 @@ void Field::BuildFence(mcpp::MinecraftConnection& mc){
         temp.z += i;
         temp.y = mc.getHeight(temp.x, temp.z)+1;
         mc.setBlock(temp, mcpp::Blocks::BIRCH_FENCE);
+        mc.setBlock(temp + mcpp::Coordinate(0,1,0), mcpp::Blocks::BIRCH_FENCE);
 
         temp.x += xLength;
         temp.y = mc.getHeight(temp.x, temp.z)+1;
         mc.setBlock(temp, mcpp::Blocks::BIRCH_FENCE);
+        mc.setBlock(temp + mcpp::Coordinate(0,1,0), mcpp::Blocks::BIRCH_FENCE);
 
     }
 
 }
 
 
+void Field::eraseField(){
+    mcpp::MinecraftConnection mc;
+    
+    // delete fence for two length sides
+    for(unsigned int i = 0; i<xLength; i++){
+        mcpp::Coordinate temp(basePoint);
+        temp.x += i;
+        temp.y = mc.getHeight(temp.x, temp.z);
+        if(mc.getBlock(temp) == mcpp::Blocks::BIRCH_FENCE){
+            mc.setBlock(temp, mcpp::Blocks::AIR);
+        }
+        if(mc.getBlock(temp + mcpp::Coordinate(0,-1,0)) == mcpp::Blocks::BIRCH_FENCE){
+            mc.setBlock(temp + mcpp::Coordinate(0,-1,0), mcpp::Blocks::AIR);
+        }
+
+        temp.z += zLength;
+        temp.y = mc.getHeight(temp.x, temp.z);
+        if(mc.getBlock(temp) == mcpp::Blocks::BIRCH_FENCE){
+            mc.setBlock(temp, mcpp::Blocks::AIR);
+        }
+        if(mc.getBlock(temp + mcpp::Coordinate(0,-1,0)) == mcpp::Blocks::BIRCH_FENCE){
+            mc.setBlock(temp + mcpp::Coordinate(0,-1,0), mcpp::Blocks::AIR);
+        }
+
+    }
+
+    // delete fence for two width sides
+    for(unsigned int i = 0; i<zLength; i++){
+        mcpp::Coordinate temp(basePoint);
+        temp.z += i;
+        temp.y = mc.getHeight(temp.x, temp.z);
+        if(mc.getBlock(temp) == mcpp::Blocks::BIRCH_FENCE){
+            mc.setBlock(temp, mcpp::Blocks::AIR);
+        }
+        if(mc.getBlock(temp + mcpp::Coordinate(0,-1,0)) == mcpp::Blocks::BIRCH_FENCE){
+            mc.setBlock(temp + mcpp::Coordinate(0,-1,0), mcpp::Blocks::AIR);
+        }
+
+        temp.x += xLength;
+        temp.y = mc.getHeight(temp.x, temp.z);
+        if(mc.getBlock(temp) == mcpp::Blocks::BIRCH_FENCE){
+            mc.setBlock(temp, mcpp::Blocks::AIR);
+        }
+        if(mc.getBlock(temp + mcpp::Coordinate(0,-1,0)) == mcpp::Blocks::BIRCH_FENCE){
+            mc.setBlock(temp + mcpp::Coordinate(0,-1,0), mcpp::Blocks::AIR);
+        }
+
+    }
+}
+
+
+mcpp::Coordinate Field::getStartLocation(void) const{
+
+    mcpp::MinecraftConnection mc;
+    mcpp::Coordinate retCoord(basePoint);
+
+    std::random_device r;
+
+    std::default_random_engine engine(r());
+    std::uniform_int_distribution<int> xLength_dist(1, xLength-1);
+    std::uniform_int_distribution<int> zLength_dist(1, zLength-1);
+
+    retCoord.x += xLength_dist(engine);
+    retCoord.z += zLength_dist(engine);
+    retCoord.y = mc.getHeight(retCoord.x, retCoord.z)+1;
+
+    return retCoord;
+}
+
+
 std::ostream& operator<<(std::ostream& os, const Field& f){
     os << "<< BasePoint: " << f.basePoint << "; Length: " 
                                     << f.xLength << "; Width: " 
-                                    << f.zLength << " >>";
+                                    << f.zLength << " >>"; 
+                                    
     return os;
 }
