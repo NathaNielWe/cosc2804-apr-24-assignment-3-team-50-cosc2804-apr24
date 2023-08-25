@@ -3,10 +3,10 @@
   {
     "type": "lldb",
     "request": "launch",
-    "name": "Week01_example",
-    "program": "/workspaces/COSC2804_Examples/Week02/Class4/working/week01_example",
+    "name": "class5_example",
+    "program": "/workspaces/COSC2804_Examples/Week02/Class5/starter_code/class5_example",
     "args": [],
-    "cwd": "/workspaces/COSC2804_Examples/Week02/Class4/working/"
+    "cwd": "/workspaces/COSC2804_Examples/Week02/Class5/starter_code"
   }
   ]
 }
