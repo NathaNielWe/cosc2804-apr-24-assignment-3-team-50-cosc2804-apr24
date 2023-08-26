@@ -1,6 +1,8 @@
 #include <iostream>
 #include <exception>
 #include <random>
+#include <chrono>
+#include <thread>
 
 #include <mcpp/mcpp.h>
 
@@ -10,8 +12,7 @@
 
 #define MAX_ITER 1000
 
-// bool check4Treasure(mcpp::Coordinate& current);
-// void randomMove(mcpp::Coordinate& current); 
+void someDelay(void);
 
 int main(void){
 
@@ -32,18 +33,13 @@ int main(void){
         std::cout << field << std::endl;
 
         //deploy agent
-        mcpp::Coordinate currentLoc = field.getStartLocation();
-
         mcpp::MinecraftConnection mc;
-        mc.setPlayerPosition(currentLoc + mcpp::Coordinate(0,1,0));
+        mcpp::Coordinate startLoc = field.getStartLocation();
 
-
-        Agent agent1(1, currentLoc);
+        Agent agent1(1, startLoc);
         std::cout << agent1 << std::endl;
 
-        int x = 0;
-        std::cout << "Enter any number to proceed: " << std::endl;
-        std::cin >> x;
+        someDelay();
 
         std::cout << "Searching treasure... " << std::endl;
 
@@ -52,7 +48,7 @@ int main(void){
         int iterations = MAX_ITER;
         mcpp::Coordinate treasureLoc;
         
-        while(!treasureFound && validSteps && iterations > 0){
+        while((!treasureFound) && validSteps && (iterations > 0)){
             treasureFound = agent1.isBlockInNeighborhood(mcpp::Blocks::GOLD_BLOCK, treasureLoc);
             if(!treasureFound){
                 validSteps = agent1.randomStep();
@@ -64,10 +60,7 @@ int main(void){
             std::cout << "Treasure found at: " << treasureLoc << std::endl;
         }
         
-        //std::cout << "Enter any number to exit: " << std::endl;
-        //std::cin >> x;
-        
-        std::cout << "Exitting ..." << x;
+        someDelay();
 
     }catch(std::invalid_argument& e){
         std::cout << "Invalid argument: " << e.what() << std::endl;
@@ -78,27 +71,10 @@ int main(void){
     return EXIT_SUCCESS;
 }
 
-
-// bool check4Treasure(mcpp::Coordinate& current){
-
-// }
-
-// void randomMove(mcpp::Coordinate& current){
-
-//     std::random_device r;
-//     std::default_random_engine engine(r());
-//     std::uniform_int_distribution<int> move_dist(-1, 1);
-
-//     bool valideMove = false;
-//     while (!valideMove)
-//     {
-//         /* code */
-//     }
-    
-    
-
-
-//     retCoord.x += xLength_dist(engine);
-//     retCoord.z += zLength_dist(engine);
-//     retCoord.y = mc.getHeight(retCoord.x, retCoord.z)+1;
-// }
+// We will not cover the libraries chrono or thread in this cause.
+// simply use them for very few things.
+void someDelay(void){
+    std::cout << "Waiting ...";
+    std::this_thread::sleep_for(std::chrono::milliseconds(25000) );
+    std::cout << "Done" << std::endl;
+}

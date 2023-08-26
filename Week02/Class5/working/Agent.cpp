@@ -7,10 +7,12 @@
 
 Agent::Agent(unsigned int id, mcpp::Coordinate location)
 {
+    mcpp::MinecraftConnection mc;
     this->id = id;
     this->location.x = location.x;
     this->location.y = location.y;
     this->location.z = location.z;
+    mc.setPlayerPosition(this->location);
 }
 
 Agent::~Agent()
