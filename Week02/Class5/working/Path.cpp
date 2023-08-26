@@ -19,20 +19,20 @@ Path::~Path()
 }
 
 
-void Path::addLocation(mcpp::Coordinate loc){
+void Path::pushCoordinate(mcpp::Coordinate loc){
     if (length < maxLength){
         savePath[length] = new mcpp::Coordinate(loc.x, loc.y, loc.z);
         length++;
     }
 }
 
-mcpp::Coordinate Path::popLocation(void){
+mcpp::Coordinate Path::popCoordinate(void){
     mcpp::Coordinate retCoord(0,0,0);
     if(length > 0){
         retCoord.x = savePath[length-1]->x;
         retCoord.y = savePath[length-1]->y;
         retCoord.z = savePath[length-1]->z;
-        
+
         delete savePath[length-1];
         savePath[length-1] = nullptr;
         length--;
