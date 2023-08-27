@@ -144,7 +144,7 @@ mcpp::Coordinate Field::getStartLocation(void) const{
 
     retCoord.x += xLength_dist(engine);
     retCoord.z += zLength_dist(engine);
-    retCoord.y = mc.getHeight(retCoord.x, retCoord.z);
+    retCoord.y = mc.getHeight(retCoord.x, retCoord.z) + 1;
 
     return retCoord;
 }

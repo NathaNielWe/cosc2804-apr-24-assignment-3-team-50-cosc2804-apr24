@@ -1,6 +1,6 @@
 #include "Agent.h"
 #include <random>
-
+#include <exception>
 
 
 #define NUM_MOVES 8
@@ -13,10 +13,13 @@ Agent::Agent(unsigned int id, mcpp::Coordinate location)
     this->location.y = location.y;
     this->location.z = location.z;
     mc.setPlayerPosition(this->location);
+
+    path = new Path(MAX_ITER);
 }
 
 Agent::~Agent()
 {
+    delete path;
 }
 
 bool Agent::checkMove(mcpp::Coordinate next){
@@ -68,15 +71,20 @@ bool Agent::randomStep(void){
         mcpp::Coordinate next;
         next.x = this->location.x + moves[movesIndices[i]][0];
         next.z = this->location.z + moves[movesIndices[i]][1];
-        next.y = mc.getHeight(next.x, next.z);
+        next.y = mc.getHeight(next.x, next.z) + 1;
 
         bool valid = checkMove(next);
         if(valid){
+            if(path->getLength() < MAX_ITER){
+                path->pushCoordinate(this->location);
+            }else{
+                throw std::length_error("Path taken by agent too long");
+            }
             this->location.x = next.x;
             this->location.y = next.y;
             this->location.z = next.z;
-            mc.setBlock(this->location + mcpp::Coordinate(0,1,0), mcpp::Blocks::BROWN_CARPET);
-            //mc.setPlayerPosition(this->location + mcpp::Coordinate(0,1,0));
+            mc.setBlock(this->location, mcpp::Blocks::BROWN_CARPET);
+            //mc.setPlayerPosition(this->location);
 
             success = true;
         }
@@ -106,6 +114,12 @@ bool Agent::isBlockInNeighborhood(mcpp::BlockType block, mcpp::Coordinate& treas
     }
 
     return retValue;
+}
+
+
+void Agent::printPath(void){
+    std::cout << "Agent " << id << "current path ...";
+    std::cout << *path;
 }
 
 

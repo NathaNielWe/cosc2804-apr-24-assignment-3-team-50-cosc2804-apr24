@@ -3,6 +3,10 @@
 #include <mcpp/mcpp.h>
 #include <vector>
 
+# include "Path.h"
+
+#define MAX_ITER 1000
+
 class Agent
 {
 
@@ -32,6 +36,11 @@ public:
     bool isBlockInNeighborhood(mcpp::BlockType block, mcpp::Coordinate& treasureCoord);
 
     /*
+    Print the path agent has traversed
+    */
+    void printPath(void);
+
+    /*
     Print agent ID and current location to output stream
     */
     friend std::ostream& operator<<(std::ostream& os, const Agent& f);
@@ -44,7 +53,7 @@ private:
     unsigned int id;
     mcpp::Coordinate location;
 
-    std::vector<mcpp::Coordinate> path;
+    Path* path;
 
 };
 

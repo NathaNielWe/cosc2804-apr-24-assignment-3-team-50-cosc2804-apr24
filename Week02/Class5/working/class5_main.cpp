@@ -10,7 +10,7 @@
 #include "Field.h"
 #include "Agent.h"
 
-#define MAX_ITER 1000
+
 
 void someDelay(void);
 
@@ -58,6 +58,9 @@ int main(void){
 
         if(treasureFound){
             std::cout << "Treasure found at: " << treasureLoc << std::endl;
+            std::cout << "Path to treasure:" << std::endl;
+            agent1.printPath();
+
         }
         
         someDelay();

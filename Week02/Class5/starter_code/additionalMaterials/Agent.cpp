@@ -7,10 +7,12 @@
 
 Agent::Agent(unsigned int id, mcpp::Coordinate location)
 {
+    mcpp::MinecraftConnection mc;
     this->id = id;
     this->location.x = location.x;
     this->location.y = location.y;
     this->location.z = location.z;
+
 }
 
 Agent::~Agent()
@@ -66,15 +68,15 @@ bool Agent::randomStep(void){
         mcpp::Coordinate next;
         next.x = this->location.x + moves[movesIndices[i]][0];
         next.z = this->location.z + moves[movesIndices[i]][1];
-        next.y = mc.getHeight(next.x, next.z);
+        next.y = mc.getHeight(next.x, next.z) + 1;
 
         bool valid = checkMove(next);
         if(valid){
             this->location.x = next.x;
             this->location.y = next.y;
             this->location.z = next.z;
-            mc.setBlock(this->location + mcpp::Coordinate(0,1,0), mcpp::Blocks::BROWN_CARPET);
-            //mc.setPlayerPosition(this->location + mcpp::Coordinate(0,1,0));
+            mc.setBlock(this->location, mcpp::Blocks::BROWN_CARPET);
+            //mc.setPlayerPosition(this->location);
 
             success = true;
         }
