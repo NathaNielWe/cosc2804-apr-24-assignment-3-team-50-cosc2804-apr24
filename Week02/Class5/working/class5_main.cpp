@@ -65,6 +65,11 @@ int main(void){
         
         someDelay();
 
+        std::cout << "Returning to start ..." << std::endl;
+        agent1.returnToStart();
+
+        someDelay();
+
     }catch(std::invalid_argument& e){
         std::cout << "Invalid argument: " << e.what() << std::endl;
     }catch(std::exception& e){

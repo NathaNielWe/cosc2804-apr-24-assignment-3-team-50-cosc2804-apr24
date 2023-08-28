@@ -15,12 +15,24 @@ Agent::Agent(unsigned int id, mcpp::Coordinate location)
     mc.setPlayerPosition(this->location);
 
     path = new Path();
-    path->pushCoordinate(this->location);
+    
 }
 
 Agent::~Agent()
 {
+    returnToStart();
     delete path;
+}
+
+void Agent::returnToStart(void){
+    mcpp::MinecraftConnection mc;
+    while (path->getLength() != 0)
+    {
+        mc.setBlock(this->location, mcpp::Blocks::AIR);
+        this->location = path->popCoordinate();
+        //mc.setPlayerPosition(this->location);
+    }
+    
 }
 
 bool Agent::checkMove(mcpp::Coordinate next){

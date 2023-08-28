@@ -3,6 +3,7 @@
 
 #include <mcpp/mcpp.h>
 #include <vector>
+#include "LinkedList.h"
 
 class Path
 {
@@ -37,7 +38,8 @@ public:
 
 private:
     //mcpp::Coordinate** savePath;
-    std::vector<mcpp::Coordinate*> savePath;
+    // std::vector<mcpp::Coordinate*> savePath;
+    LinkedList savePath;
     // int length;
     // int maxLength;
 };

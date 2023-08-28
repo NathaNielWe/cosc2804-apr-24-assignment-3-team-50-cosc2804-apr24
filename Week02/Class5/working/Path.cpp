@@ -6,9 +6,9 @@ Path::Path()
 
 Path::~Path()
 {
-    for(int i = 0; i<savePath.size(); i++){
-        delete savePath[i];
-    }
+    // for(int i = 0; i<savePath.size(); i++){
+    //     delete savePath[i];
+    // }
 }
 
 
@@ -19,12 +19,12 @@ void Path::pushCoordinate(mcpp::Coordinate loc){
 
 mcpp::Coordinate Path::popCoordinate(void){
     mcpp::Coordinate retCoord(0,0,0);
-    if(!savePath.empty()){
+    if(savePath.size() != 0){
         retCoord.x = savePath.back()->x;
         retCoord.y = savePath.back()->y;
         retCoord.z = savePath.back()->z;
 
-        delete savePath.back();
+        //delete savePath.back();
         savePath.pop_back();
     }
 
@@ -39,7 +39,7 @@ int Path::getLength(void){
 std::ostream& operator<<(std::ostream& os, const Path& p){
     os << "Path has " << p.savePath.size() << " nodes." << std::endl;
     for(int i = 0; i < p.savePath.size(); i++){
-        os << "[" << i << "] \t :" << *(p.savePath[i]) << std::endl; 
+        os << "[" << i << "] \t :" << *(p.savePath.get(i)) << std::endl; 
     }
 
     return os;

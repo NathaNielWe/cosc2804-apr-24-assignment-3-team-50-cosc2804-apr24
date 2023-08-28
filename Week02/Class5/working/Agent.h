@@ -40,6 +40,9 @@ public:
     */
     void printPath(void);
 
+
+    void returnToStart(void);
+
     /*
     Print agent ID and current location to output stream
     */
