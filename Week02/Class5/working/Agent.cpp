@@ -14,7 +14,8 @@ Agent::Agent(unsigned int id, mcpp::Coordinate location)
     this->location.z = location.z;
     mc.setPlayerPosition(this->location);
 
-    path = new Path(MAX_ITER);
+    path = new Path();
+    path->pushCoordinate(this->location);
 }
 
 Agent::~Agent()

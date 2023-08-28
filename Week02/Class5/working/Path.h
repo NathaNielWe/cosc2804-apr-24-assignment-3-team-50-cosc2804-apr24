@@ -2,11 +2,12 @@
 #define PATH_H
 
 #include <mcpp/mcpp.h>
+#include <vector>
 
 class Path
 {
 public:
-    Path(int maxLength);
+    Path();
     ~Path();
 
     /*
@@ -35,9 +36,10 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Path& p);
 
 private:
-    mcpp::Coordinate** savePath;
-    int length;
-    int maxLength;
+    //mcpp::Coordinate** savePath;
+    std::vector<mcpp::Coordinate*> savePath;
+    // int length;
+    // int maxLength;
 };
 
 
