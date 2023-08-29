@@ -17,7 +17,7 @@ LinkedList::~LinkedList(){
 int LinkedList::size() const {
     int length = 0;
 
-    Node* curNode = head;
+    std::shared_ptr<Node> curNode = head;
 
     while (curNode != nullptr)
     {
@@ -28,12 +28,12 @@ int LinkedList::size() const {
     return length;
 }
 
-int* LinkedList::back(void) const {
-    return head->coord;
+std::shared_ptr<Date> LinkedList::back(void) const {
+    return head->date;
 }
 
-int* LinkedList::get(int index) const{
-    int* retCoord = nullptr;
+Date* LinkedList::get(int index) const{
+    Date* retCoord = nullptr;
     index = size() - 1 - index;
 
     if(index >= 0 && index < size() ){
@@ -46,7 +46,7 @@ int* LinkedList::get(int index) const{
             curNode = curNode->next;
         }
         
-        retCoord = curNode->coord;
+        retCoord = curNode->date;
 
     }
 
@@ -55,15 +55,15 @@ int* LinkedList::get(int index) const{
 }
 
 void LinkedList::pop_back(){
-    Node* toDelete = head;
+    //Node* toDelete = head;
     head = head->next;
-    delete toDelete->coord;
-    delete toDelete;
+    //delete toDelete->date;
+    //delete toDelete;
 }
 
-void LinkedList::push_back(int* coord){
-    Node* node = new Node();
-    node->coord = coord;
+void LinkedList::push_back(std::shared_ptr<Date> date){
+    std::shared_ptr<Node> node = std::make_shared<Node>();
+    node->date = date;
     node->next = head;
     head = node;
 }
