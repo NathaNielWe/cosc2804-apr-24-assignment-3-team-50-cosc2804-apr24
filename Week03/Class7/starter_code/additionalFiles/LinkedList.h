@@ -2,10 +2,11 @@
 #define LINKEDLIST_H
 
 #include <mcpp/mcpp.h>
+#include "Date.h"
 
 class Node{
 public:
-    int *coord;
+    Date* date;
     Node* next;
 };
 
@@ -15,30 +16,30 @@ public:
     ~LinkedList();
 
     /*
-    Return the number of nodes in the linked list
+    Return the number of dates in the linked list
     */
     int size() const ;
 
     /*
-    return the last added int
+    return the last added date
     */
-    int* back(void) const;
+    Date* back(void) const;
 
     /*
-    Return  the index int
+    Return  the index date
     */
-    int* get(int index) const;
+    Date* get(int index) const;
 
     /*
-    Removes the last added int. clears the memory
-    Assumes there are coordinates to delete
+    Removes the last added date. clears the memory
+    Assumes there are dates to delete
     */
     void pop_back();
 
     /*
-    Adds a int to the list
+    Adds a date to the list
     */
-    void push_back(int* num);
+    void push_back(Date* num);
 
 private:
     Node* head;

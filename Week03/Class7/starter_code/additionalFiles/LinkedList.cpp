@@ -28,12 +28,12 @@ int LinkedList::size() const {
     return length;
 }
 
-int* LinkedList::back(void) const {
-    return head->coord;
+Date* LinkedList::back(void) const {
+    return head->date;
 }
 
-int* LinkedList::get(int index) const{
-    int* retCoord = nullptr;
+Date* LinkedList::get(int index) const{
+    Date* retCoord = nullptr;
     index = size() - 1 - index;
 
     if(index >= 0 && index < size() ){
@@ -46,7 +46,7 @@ int* LinkedList::get(int index) const{
             curNode = curNode->next;
         }
         
-        retCoord = curNode->coord;
+        retCoord = curNode->date;
 
     }
 
@@ -57,13 +57,13 @@ int* LinkedList::get(int index) const{
 void LinkedList::pop_back(){
     Node* toDelete = head;
     head = head->next;
-    delete toDelete->coord;
+    delete toDelete->date;
     delete toDelete;
 }
 
-void LinkedList::push_back(int* coord){
+void LinkedList::push_back(Date* date){
     Node* node = new Node();
-    node->coord = coord;
+    node->date = date;
     node->next = head;
     head = node;
 }
