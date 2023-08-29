@@ -37,6 +37,8 @@ public:
 
     /*
     Floodfill 
+    contract: the start location should not contain the 
+    same block type as block
     */
    void floodFill(mcpp::Coordinate start, mcpp::BlockType block);
     
