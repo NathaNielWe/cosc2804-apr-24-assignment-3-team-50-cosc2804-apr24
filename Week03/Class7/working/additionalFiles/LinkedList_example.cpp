@@ -14,7 +14,7 @@ int main(void){
     std::uniform_int_distribution<int> day_dist(1, 28);
 
     for(int i=0; i<5; i++){
-        Date* temp = new Date(year_dist(e), month_dist(e), day_dist(e));
+        std::shared_ptr<Date> temp = std::make_shared<Date>(year_dist(e), month_dist(e), day_dist(e));
         DateList.push_back(temp);
     }
 

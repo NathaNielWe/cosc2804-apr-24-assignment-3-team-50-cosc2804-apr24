@@ -7,10 +7,10 @@ LinkedList::LinkedList(){
 }
 
 LinkedList::~LinkedList(){
-    while (head != nullptr)
-    {
-        pop_back();
-    }
+    // while (head != nullptr)
+    // {
+    //     pop_back();
+    // }
     
 }
 
@@ -32,13 +32,13 @@ std::shared_ptr<Date> LinkedList::back(void) const {
     return head->date;
 }
 
-Date* LinkedList::get(int index) const{
-    Date* retCoord = nullptr;
+std::shared_ptr<Date> LinkedList::get(int index) const{
+    std::shared_ptr<Date> retCoord = nullptr;
     index = size() - 1 - index;
 
     if(index >= 0 && index < size() ){
         int counter = 0;
-        Node* curNode = head;
+        std::shared_ptr<Node> curNode = head;
 
         while (counter < index)
         {
