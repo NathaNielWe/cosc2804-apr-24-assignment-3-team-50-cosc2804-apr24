@@ -42,6 +42,9 @@ int main(void){
 
         someDelay();
 
+        //cleanup before exit
+        field.floodFill(randCoord, mcpp::Blocks::AIR);
+
 
     }catch(std::invalid_argument& e){
         std::cout << "Invalid argument: " << e.what() << std::endl;
