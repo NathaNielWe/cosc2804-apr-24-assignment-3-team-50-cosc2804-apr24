@@ -1,6 +1,8 @@
 #include "Field.h"
 #include <random>
 #include <chrono>
+#include <map>
+#include <vector>
 
 Field::Field(mcpp::Coordinate basePoint, unsigned int xLength, unsigned int zLength)
 {
@@ -172,17 +174,33 @@ void Field::floodFill(mcpp::Coordinate curr, mcpp::Coordinate prev,
         //Recursive step
         mc.setBlock(curr, block);
 
-        mcpp::Coordinate xPlus(curr.x+1, mc.getHeight(curr.x+1, curr.z)+1 ,curr.z);
-        floodFill(xPlus, curr, block, mc);
+        std::vector< mcpp::Coordinate > neighbourhood;
+        neighbourhood.push_back(mcpp::Coordinate(1,0,0));    //up
+        neighbourhood.push_back(mcpp::Coordinate(-1,0,0));   //down
+        neighbourhood.push_back(mcpp::Coordinate(0,0,1));    //right
+        neighbourhood.push_back(mcpp::Coordinate(0,0,-1));   //left
 
-        mcpp::Coordinate xMinus(curr.x-1, mc.getHeight(curr.x-1, curr.z)+1 ,curr.z);
-        floodFill(xMinus, curr, block, mc);
 
-        mcpp::Coordinate zPlus(curr.x, mc.getHeight(curr.x, curr.z+1)+1 ,curr.z+1);
-        floodFill(zPlus, curr, block, mc);
+        for(mcpp::Coordinate& offset : neighbourhood){
 
-        mcpp::Coordinate zMinus(curr.x, mc.getHeight(curr.x, curr.z-1)+1 ,curr.z-1);
-        floodFill(zMinus, curr, block, mc);
+            mcpp::Coordinate xPlus(
+                                    curr.x+offset.x, 
+                                    mc.getHeight(curr.x+offset.x, curr.z+offset.z)+1 ,
+                                    curr.z+offset.z);
+
+            floodFill(xPlus, curr, block, mc);
+        }
+        // mcpp::Coordinate xPlus(curr.x+1, mc.getHeight(curr.x+1, curr.z)+1 ,curr.z);
+        // floodFill(xPlus, curr, block, mc);
+
+        // mcpp::Coordinate xMinus(curr.x-1, mc.getHeight(curr.x-1, curr.z)+1 ,curr.z);
+        // floodFill(xMinus, curr, block, mc);
+
+        // mcpp::Coordinate zPlus(curr.x, mc.getHeight(curr.x, curr.z+1)+1 ,curr.z+1);
+        // floodFill(zPlus, curr, block, mc);
+
+        // mcpp::Coordinate zMinus(curr.x, mc.getHeight(curr.x, curr.z-1)+1 ,curr.z-1);
+        // floodFill(zMinus, curr, block, mc);
 
     }
 }

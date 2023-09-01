@@ -79,6 +79,8 @@
         "__string": "cpp",
         "compare": "cpp",
         "concepts": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "__tree": "cpp",
+        "__memory": "cpp"
     }
 }
