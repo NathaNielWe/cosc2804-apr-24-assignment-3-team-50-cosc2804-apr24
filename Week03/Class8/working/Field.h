@@ -63,6 +63,7 @@ private:
     unsigned int xLength;
     unsigned int zLength;
     mcpp::Coordinate treasureLoc;
+
 };
 
 #endif //FIELD_H
