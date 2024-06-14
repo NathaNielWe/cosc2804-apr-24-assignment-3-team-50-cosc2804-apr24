@@ -3,10 +3,10 @@
   {
     "type": "lldb",
     "request": "launch",
-    "name": "class5_example",
-    "program": "/workspaces/COSC2804_Examples/Week02/Class5/starter_code/class5_example",
+    "name": "mazeRunner",
+    "program": "[PATH]/mazeRunner",
     "args": [],
-    "cwd": "/workspaces/COSC2804_Examples/Week02/Class5/starter_code"
+    "cwd": "[PATH]"
   }
   ]
 }
