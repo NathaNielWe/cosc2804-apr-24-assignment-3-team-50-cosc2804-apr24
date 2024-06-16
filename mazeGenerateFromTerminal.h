@@ -8,14 +8,23 @@
 
 void buildMazeInMinecraft(std::vector<std::string> Maze, int playerPosX, int playerPosY, int playerPosZ)
 {
-
+    mcpp::MinecraftConnection mc;
     int width = Maze[0].length();
     int length = Maze.size();
         //upper left we will start with  
-       mcpp::Coordinate buildCoords = mcpp::Coordinate(playerPosX +(width/2),playerPosY+1,playerPosZ + length);
+    mcpp::Coordinate buildCoordsOriginal = mcpp::Coordinate((playerPosX - (width/2))-1,playerPosY+1,playerPosZ + length)+1;
+    mcpp::Coordinate buildCoordsOriginalCopy = mcpp::Coordinate((playerPosX - (width/2))-1,playerPosY+1,playerPosZ + length)+1;
 
 
-    for(Maze)
+
+        for(int i = 1; i <= length; ++i)
+        {
+            for(int m = 1; m <= width; ++m)
+            {
+                mcpp::Coordinate buildCoordsOriginalCopy = buildCoordsOriginalCopy + mcpp::Coordinate(m,1,i);
+                mc.setBlock(buildCoordsOriginalCopy, mcpp::BlockType );
+            }
+        }
 
 }
 
