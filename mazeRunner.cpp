@@ -5,6 +5,7 @@
 #include "Maze.h"
 #include "Agent.h"
 #include "menuUtils.h"
+#include "mazeGenerateFromTerminal.h"
 
 #define NORMAL_MODE 0
 #define TESTING_MODE 1
@@ -41,6 +42,7 @@ int main(void){
         switch (menuChoice)
         {
         case 1:
+            mazeFromTerminalMenu();
             break;
         case 2:
             
