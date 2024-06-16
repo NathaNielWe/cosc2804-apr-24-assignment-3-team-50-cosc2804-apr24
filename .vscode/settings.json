@@ -81,6 +81,9 @@
         "concepts": "cpp",
         "list": "cpp",
         "__tree": "cpp",
-        "__memory": "cpp"
+        "__memory": "cpp",
+        "numbers": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp"
     }
 }

@@ -1,9 +1,8 @@
-
 Welcome to MineCraft MazeRunner!
 --------------------------------
 
 ------------- MAIN MENU -------------
-1) Create a Maze
+1) Generate Maze
 2) Build Maze in MineCraft
 3) Solve Maze
 4) Show Team Information
@@ -11,13 +10,31 @@ Welcome to MineCraft MazeRunner!
 
 Enter Menu item to continue: 
 
-Team members:
-	 [1] Ruwan Tennakoon (ruwan.tennekoon@rmit.edu.au)
-	 [2] Steven Korevaar (steven.korevaar@rmit.edu.au)
+------------- GENERATE MAZE -------------
+1) Read Maze from terminal
+2) Generate Random Maze
+3) Back
+
+Enter Menu item to continue: 
+Enter the basePoint of maze: 
+Enter the length and width of maze: 
+Enter the maze structure: 
+Maze read successfully
+**Printing Maze**
+BasePoint: (4848, 71, 4369)
+Structure:
+x.xxx
+x.x.x
+x.x.x
+x.x.x
+x.x.x
+x...x
+xxxxx
+**End Printing Maze**
 
 
 ------------- MAIN MENU -------------
-1) Create a Maze
+1) Generate Maze
 2) Build Maze in MineCraft
 3) Solve Maze
 4) Show Team Information
@@ -26,4 +43,3 @@ Team members:
 Enter Menu item to continue: 
 
 The End!
-

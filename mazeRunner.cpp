@@ -2,9 +2,9 @@
 
 #include <mcpp/mcpp.h>
 
-#include "menuUtils.h"
 #include "Maze.h"
 #include "Agent.h"
+#include "menuUtils.h"
 
 #define NORMAL_MODE 0
 #define TESTING_MODE 1
@@ -20,6 +20,7 @@ enum States{
 int main(void){
 
     bool mode = NORMAL_MODE;
+    int menuChoice;
     //read Mode
 
     
@@ -28,16 +29,39 @@ int main(void){
     mc.doCommand("time set day"); 
 
     States curState = ST_Main;
+    printStartText();
 
     //State machine for menu        
     while (curState != ST_Exit)
     {
-        //Do something
+        printMainMenu();
+
+        std::cin >> menuChoice;
+
+        switch (menuChoice)
+        {
+        case 1:
+            break;
+        case 2:
+            
+            break;
+        case 3:
+
+            break;
+        case 4:
+            break;
+        case 5:
+            printExitMassage();
+            exit(1);
+            break;
+        
+        default:
+            break;
+        }
     }
-
-    printExitMassage();
-
+    
 
     return EXIT_SUCCESS;
 
 }
+
