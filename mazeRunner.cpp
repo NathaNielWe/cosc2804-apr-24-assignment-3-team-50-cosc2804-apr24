@@ -43,19 +43,15 @@ int main(void){
         {
         case 1:
             mazeFromTerminalMenu();
-            break;
         case 2:
             
-            break;
         case 3:
 
-            break;
+            
         case 4:
-            break;
         case 5:
             printExitMassage();
             exit(1);
-            break;
         
         default:
             break;
