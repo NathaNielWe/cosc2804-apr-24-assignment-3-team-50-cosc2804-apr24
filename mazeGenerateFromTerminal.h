@@ -1,6 +1,8 @@
 #include <iostream>
 #include <mcpp/mcpp.h>
 #include <string>
+#include <string.h>
+
 
 
 bool checkIfOdd(int width, int length){
@@ -10,6 +12,41 @@ bool checkIfOdd(int width, int length){
     }
     return isOdd;
 }
+
+void userCreateAndCheckMaze(int width, int length){
+    std::cout << "enter the maze structure:" << std::endl;
+    const int SIZE = length;
+    std::string Maze[SIZE];
+
+    for (int i = 0; i < length; ++i) {
+        std::cout << "Enter string " << i + 1 << ": ";
+        std::cin >> Maze[i];
+    }
+    //passes length checks 
+    for(int i = 0; i < length; ++i)
+    {
+        if(Maze[i].length() != width)
+        {
+            std::cout << "please make sure the width of the maze is all the same" << std::endl;
+            userCreateAndCheckMaze(width, length);
+        }
+    }
+
+    for(int i = 0; i < length; ++i)
+    {
+        for(int x = 0; x < width; ++x)
+        {
+            std::string stringArray = Maze[i];
+            if(stringArray[x] != '*' || stringArray[x] != '.' )
+            {
+                std::cout << "please make sure the chars of the maze are all the same e.g. '*' for walls and '.' for open spaces " << std::endl;
+                userCreateAndCheckMaze(width, length);
+            } 
+            
+        }
+    }
+}
+
 void printGenerateMazeMenu2(void){
     std::cout << std::endl;
     std::cout << "------------- CREATE A MAZE -------------" << std::endl;
@@ -63,13 +100,7 @@ void createMazeFromTerminal(){
         }
 
     }
-    const int SIZE = length;
-    std::string Maze[SIZE];
     
-    for (int i = 0; i < length; ++i) {
-        std::cout << "Enter string " << i + 1 << ": ";
-        std::cin >> Maze[i];
-    }
 
 }
 
