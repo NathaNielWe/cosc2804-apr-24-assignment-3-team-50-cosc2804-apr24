@@ -9,6 +9,14 @@
 void buildMazeInMinecraft(std::vector<std::string> Maze, int playerPosX, int playerPosY, int playerPosZ)
 {
 
+    int width = Maze[0].length();
+    int length = Maze.size();
+        //upper left we will start with  
+       mcpp::Coordinate buildCoords = mcpp::Coordinate(playerPosX +(width/2),playerPosY+1,playerPosZ + length);
+
+
+    for(Maze)
+
 }
 
 bool checkIfOdd(int width, int length){
