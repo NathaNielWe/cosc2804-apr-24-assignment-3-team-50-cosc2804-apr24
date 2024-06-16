@@ -2,6 +2,8 @@
 #include <mcpp/mcpp.h>
 #include <string>
 #include <string.h>
+#include <vector>
+
 
 
 
@@ -13,14 +15,16 @@ bool checkIfOdd(int width, int length){
     return isOdd;
 }
 
-void userCreateAndCheckMaze(int width, int length){
+std::vector<std::string> userCreateAndCheckMaze(int width, int length){
     std::cout << "enter the maze structure:" << std::endl;
     const int SIZE = length;
-    std::string Maze[SIZE];
-
+    std::vector<std::string> Maze;
+    std::string userMazeSegment; 
+    
     for (int i = 0; i < length; ++i) {
         std::cout << "Enter string " << i + 1 << ": ";
-        std::cin >> Maze[i];
+        std::cin >> userMazeSegment;
+        Maze.push_back(userMazeSegment);
     }
     //passes length checks 
     for(int i = 0; i < length; ++i)
@@ -45,6 +49,7 @@ void userCreateAndCheckMaze(int width, int length){
             
         }
     }
+    return Maze;
 }
 
 void printGenerateMazeMenu2(void){
