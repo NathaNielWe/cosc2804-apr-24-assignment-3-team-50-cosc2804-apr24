@@ -18,7 +18,7 @@ enum States{
     ST_Exit
 };
 
-int main(void){
+int main(int argc, char* argv[]){
 
     bool mode = NORMAL_MODE;
     int menuChoice;

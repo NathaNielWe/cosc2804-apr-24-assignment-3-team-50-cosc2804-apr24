@@ -6,6 +6,10 @@
 
 
 
+void buildMazeInMinecraft(std::vector<std::string> Maze, int playerPosX, int playerPosY, int playerPosZ)
+{
+
+}
 
 bool checkIfOdd(int width, int length){
     bool isOdd = false;
@@ -20,7 +24,7 @@ std::vector<std::string> userCreateAndCheckMaze(int width, int length){
     const int SIZE = length;
     std::vector<std::string> Maze;
     std::string userMazeSegment; 
-    
+
     for (int i = 0; i < length; ++i) {
         std::cout << "Enter string " << i + 1 << ": ";
         std::cin >> userMazeSegment;
