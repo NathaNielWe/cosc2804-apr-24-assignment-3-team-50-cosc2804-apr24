@@ -12,8 +12,8 @@ void buildMazeInMinecraft(std::vector<std::string> Maze, int playerPosX, int pla
     int width = Maze[0].length();
     int length = Maze.size();
         //upper left we will start with  
-    mcpp::Coordinate buildCoordsOriginal = mcpp::Coordinate((playerPosX - (width/2))-1,playerPosY+1,playerPosZ + length)+1;
-    mcpp::Coordinate buildCoordsOriginalCopy = mcpp::Coordinate((playerPosX - (width/2))-1,playerPosY+1,playerPosZ + length)+1;
+    mcpp::Coordinate buildCoordsOriginal = mcpp::Coordinate((playerPosX - (width/2))-1,playerPosY+1,playerPosZ + length+1);
+    mcpp::Coordinate buildCoordsOriginalCopy = mcpp::Coordinate((playerPosX - (width/2))-1,playerPosY+1,playerPosZ + length+1);
 
 
 
@@ -22,7 +22,12 @@ void buildMazeInMinecraft(std::vector<std::string> Maze, int playerPosX, int pla
             for(int m = 1; m <= width; ++m)
             {
                 mcpp::Coordinate buildCoordsOriginalCopy = buildCoordsOriginalCopy + mcpp::Coordinate(m,1,i);
-                mc.setBlock(buildCoordsOriginalCopy, mcpp::BlockType );
+                if(Maze[i-1][m-1] == '*')
+                {
+                    mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::ACACIA_WOOD);
+                } else {
+                    mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::AIR);
+                }
             }
         }
 
