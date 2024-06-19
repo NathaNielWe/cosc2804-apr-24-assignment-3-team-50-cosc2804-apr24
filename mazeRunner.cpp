@@ -20,7 +20,7 @@ enum States{
 
 int main(int argc, char* argv[]){
 
-    bool mode = NORMAL_MODE;
+    //bool mode = NORMAL_MODE;
     int menuChoice;
     //read Mode
 

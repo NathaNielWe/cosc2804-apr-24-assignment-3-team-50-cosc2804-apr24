@@ -3,6 +3,8 @@
 #include <string>
 #include <string.h>
 #include <vector>
+#include<cmath>
+
 
 
 
@@ -11,25 +13,71 @@ void buildMazeInMinecraft(std::vector<std::string> Maze, int playerPosX, int pla
     mcpp::MinecraftConnection mc;
     int width = Maze[0].length();
     int length = Maze.size();
-        //upper left we will start with  
-    mcpp::Coordinate buildCoordsOriginal = mcpp::Coordinate((playerPosX - (width/2))-1,playerPosY+1,playerPosZ + length+1);
-    mcpp::Coordinate buildCoordsOriginalCopy = mcpp::Coordinate((playerPosX - (width/2))-1,playerPosY+1,playerPosZ + length+1);
+    std::cout << length << std::endl;
+    std::cout << width << std::endl;
+    
+
+        //upper left we will start with 
+    mcpp::Coordinate buildCoordsOriginalCopy;
+    mcpp::Coordinate buildCoordsOriginal;
+
+    int playerx = ceil((playerPosX + (width/2))+1);
+    buildCoordsOriginal = mcpp::Coordinate(playerx,playerPosY-1,playerPosZ + length+1);
+    buildCoordsOriginalCopy = mcpp::Coordinate(playerx,playerPosY-1,playerPosZ + length+1);
 
 
-
-        for(int i = 1; i <= length; ++i)
+    for(int i = 1; i <=length; ++i)
+    {
+        for (int z = 1; z <= width; ++z)
         {
-            for(int m = 1; m <= width; ++m)
+            buildCoordsOriginalCopy = mcpp::Coordinate(playerx-z,playerPosY-1,(playerPosZ + length+1)-i);
+            mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::ACACIA_WOOD);
+            if(Maze[i-1][z-1] == '*')
             {
-                mcpp::Coordinate buildCoordsOriginalCopy = buildCoordsOriginalCopy + mcpp::Coordinate(m,1,i);
-                if(Maze[i-1][m-1] == '*')
-                {
-                    mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::ACACIA_WOOD);
-                } else {
-                    mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::AIR);
-                }
+                mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::ACACIA_WOOD);
+            } else {
+                mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::AIR);
             }
+            buildCoordsOriginalCopy = buildCoordsOriginal;
         }
+        
+    }
+    for(int i = 1; i <=length; ++i)
+    {
+        for (int z = 1; z <= width; ++z)
+        {
+            buildCoordsOriginalCopy = mcpp::Coordinate(playerx-z,playerPosY,(playerPosZ + length+1)-i);
+            mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::ACACIA_WOOD);
+            if(Maze[i-1][z-1] == '*')
+            {
+                mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::ACACIA_WOOD);
+            } else {
+                mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::AIR);
+            }
+            buildCoordsOriginalCopy = buildCoordsOriginal;
+        }
+        
+    }
+
+    for(int i = 1; i <=length; ++i)
+    {
+        for (int z = 1; z <= width; ++z)
+        {
+            buildCoordsOriginalCopy = mcpp::Coordinate(playerx-z,playerPosY+1,(playerPosZ + length+1)-i);
+            mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::ACACIA_WOOD);
+            if(Maze[i-1][z-1] == '*')
+            {
+                mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::ACACIA_WOOD);
+            } else {
+                mc.setBlock(buildCoordsOriginalCopy, mcpp::Blocks::AIR);
+            }
+            buildCoordsOriginalCopy = buildCoordsOriginal;
+        }
+        
+    }
+
+
+        
 
 }
 
@@ -41,40 +89,39 @@ bool checkIfOdd(int width, int length){
     return isOdd;
 }
 
-std::vector<std::string> userCreateAndCheckMaze(int width, int length){
+std::vector<std::string> userCreateAndCheckMaze(long unsigned int width, int length){
     std::cout << "enter the maze structure:" << std::endl;
-    const int SIZE = length;
+    //const int SIZE = length;
     std::vector<std::string> Maze;
     std::string userMazeSegment; 
 
     for (int i = 0; i < length; ++i) {
-        std::cout << "Enter string " << i + 1 << ": ";
         std::cin >> userMazeSegment;
         Maze.push_back(userMazeSegment);
     }
     //passes length checks 
     for(int i = 0; i < length; ++i)
     {
-        if(Maze[i].length() != width)
+        if(Maze[i].size() != width)
         {
             std::cout << "please make sure the width of the maze is all the same" << std::endl;
             userCreateAndCheckMaze(width, length);
         }
     }
 
-    for(int i = 0; i < length; ++i)
-    {
-        for(int x = 0; x < width; ++x)
-        {
-            std::string stringArray = Maze[i];
-            if(stringArray[x] != '*' || stringArray[x] != '.' )
-            {
-                std::cout << "please make sure the chars of the maze are all the same e.g. '*' for walls and '.' for open spaces " << std::endl;
-                userCreateAndCheckMaze(width, length);
-            } 
+   // for(int i = 0; i < length; ++i)
+   // {
+    //    for(long unsigned int x = 0; x < width; ++x)
+    //    {
+    //        std::string stringArray = Maze[i];
+    //        if(stringArray[x] != '*' || stringArray[x] != '.' )
+    //        {
+    //            std::cout << "please make sure the chars of the maze are all the same e.g. '*' for walls and '.' for open spaces " << std::endl;
+    //            userCreateAndCheckMaze(width, length);
+    //        } 
             
-        }
-    }
+    //   }
+   // }
     return Maze;
 }
 
@@ -88,7 +135,8 @@ void printGenerateMazeMenu2(void){
     std::cout << "Enter Menu item to continue: " << std::endl;
 }
 
-void createMazeFromTerminal(){
+void createMazeFromTerminal()
+{
     mcpp::MinecraftConnection mc;
     mc.postToChat("hello");
     std::cout << "In Minecraft, navigate to where you need the maze\nto be built in Minecraft and type - done:" << std::endl;
@@ -131,8 +179,10 @@ void createMazeFromTerminal(){
         }
 
     }
+         std::vector<std::string> Maze = userCreateAndCheckMaze(width, length);
+         buildMazeInMinecraft(Maze,coord.x,coord.y,coord.z);
     
-
+    
 }
 
 
