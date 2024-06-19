@@ -44,6 +44,7 @@ void PlacePlayerInsideMaze(std::vector<std::string> Maze,int length, int width, 
         }
     }
 }
+}
 void buildMazeInMinecraft(std::vector<std::string> Maze, int playerPosX, int playerPosY, int playerPosZ)
 {
     mcpp::MinecraftConnection mc;
@@ -163,7 +164,7 @@ std::vector<std::string> userCreateAndCheckMaze(long unsigned int width, int len
 
     for(int i = 0; i < length; ++i)
     {
-        for(int x = 0; x < width; ++x)
+        for(long unsigned int x = 0; x < width; ++x)
     {
             std::string stringArray = Maze[i];
             if(Maze[i][x] != '*' || Maze[i][x] != '.' )
