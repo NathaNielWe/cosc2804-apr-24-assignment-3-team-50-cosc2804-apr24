@@ -6,8 +6,44 @@
 #include<cmath>
 
 
+void PlacePlayerInsideMaze(std::vector<std::string> Maze,int length, int width, int playerPosX, int playerPosY, int playerPosZ)
+{
+    mcpp::MinecraftConnection mc;
+    mcpp::Coordinate playerCoords;
+    mcpp::Coordinate buildCoordsOriginal;
+    int playerx = ceil((playerPosX + (width/2))+1);
+    buildCoordsOriginal = mcpp::Coordinate(playerx,playerPosY-1,playerPosZ + length+1);
 
 
+
+    playerCoords = mcpp::Coordinate(playerPosX,playerPosY,playerPosZ);
+
+//check the perimetre of the maze and the tp the player there
+//find outer 
+    for(int i = 0; i <length; ++i)
+    {
+        for (int z = 0; z < width; ++z)
+        {
+            if(i == 0 || i == length - 1)
+            {
+                if(Maze[i][z]== '.')
+                {   
+                    buildCoordsOriginal = buildCoordsOriginal + mcpp::Coordinate(-i-1,0,-z-1);
+                    mc.setPlayerPosition(buildCoordsOriginal);
+                }
+            } else {
+                if(Maze[i][0] == '.')
+                {
+                    buildCoordsOriginal = buildCoordsOriginal + mcpp::Coordinate(-i-1,0,-1);
+                    mc.setPlayerPosition(buildCoordsOriginal);
+                } else if (Maze[i][width-1] == '.')
+                {
+                    buildCoordsOriginal = buildCoordsOriginal + mcpp::Coordinate(-i-1,0,-z-1);
+                    mc.setPlayerPosition(buildCoordsOriginal);
+                }
+        }
+    }
+}
 void buildMazeInMinecraft(std::vector<std::string> Maze, int playerPosX, int playerPosY, int playerPosZ)
 {
     mcpp::MinecraftConnection mc;
@@ -24,6 +60,22 @@ void buildMazeInMinecraft(std::vector<std::string> Maze, int playerPosX, int pla
     int playerx = ceil((playerPosX + (width/2))+1);
     buildCoordsOriginal = mcpp::Coordinate(playerx,playerPosY-1,playerPosZ + length+1);
     buildCoordsOriginalCopy = mcpp::Coordinate(playerx,playerPosY-1,playerPosZ + length+1);
+
+    std::cout << "Maze generated succesfully\n**Printing Maze**" << std::endl;
+    std::cout << "BasePoint: (" << floor(playerPosX) << ", " << floor(playerPosY) << ", " << playerPosZ << ")" << std::endl;
+    std::cout << "Structure" << std::endl;
+    
+    //print structure of the maze
+
+   for(int i = 1; i <=length; ++i)
+    {
+        for (int z = 1; z <= width; ++z)
+        {
+            std::cout << Maze[i-1][z-1];
+        }
+        std::cout << "" << std::endl;
+    }
+
 
 
     for(int i = 1; i <=length; ++i)
@@ -109,19 +161,19 @@ std::vector<std::string> userCreateAndCheckMaze(long unsigned int width, int len
         }
     }
 
-   // for(int i = 0; i < length; ++i)
-   // {
-    //    for(long unsigned int x = 0; x < width; ++x)
-    //    {
-    //        std::string stringArray = Maze[i];
-    //        if(stringArray[x] != '*' || stringArray[x] != '.' )
-    //        {
-    //            std::cout << "please make sure the chars of the maze are all the same e.g. '*' for walls and '.' for open spaces " << std::endl;
-    //            userCreateAndCheckMaze(width, length);
-    //        } 
+    for(int i = 0; i < length; ++i)
+    {
+        for(int x = 0; x < width; ++x)
+    {
+            std::string stringArray = Maze[i];
+            if(Maze[i][x] != '*' || Maze[i][x] != '.' )
+            {
+                std::cout << "please make sure the chars of the maze are all the same e.g. '*' for walls and '.' for open spaces " << std::endl;
+                userCreateAndCheckMaze(width, length);
+            } 
             
-    //   }
-   // }
+       }
+    }
     return Maze;
 }
 
@@ -154,6 +206,8 @@ void createMazeFromTerminal()
             if(playerReady == "- done")
             {
                 playerDoneBool = false;
+            } else {
+                std::cout << "please type '- done' to confirm coordinates" << std::endl;
             }
         }
     }
