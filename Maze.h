@@ -11,10 +11,11 @@ public:
                                         unsigned int zlen,
                                         bool mode);
     ~Maze();
+    
 
 private:
-    /* data */
 
+    
 };
 
 

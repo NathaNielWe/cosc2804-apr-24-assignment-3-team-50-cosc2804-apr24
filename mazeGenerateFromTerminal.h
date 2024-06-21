@@ -228,8 +228,10 @@ void createMazeFromTerminal()
 
 std::vector<std::vector<char>>  divide(std::vector<std::vector<char>>& maze, int x, int y, int width, int height, char orientation) 
 {
-    if (width < 2 || height < 2) return maze;
-
+    if (width < 2 || height < 2)
+    {
+        return maze;
+    }
     // Choose the direction to split
     bool horizontal = orientation == 'H';
 
@@ -256,13 +258,13 @@ std::vector<std::vector<char>>  divide(std::vector<std::vector<char>>& maze, int
     int ny = y;
     int nw = horizontal ? width : wx - x;
     int nh = horizontal ? wy - y : height;
-    divide(maze, nx, ny, nw, nh, orientation == 'H' ? 'V' : 'H');
+    maze = divide(maze, nx, ny, nw, nh, orientation == 'H' ? 'V' : 'H');
 
     nx = horizontal ? x : wx + 1;
     ny = horizontal ? wy + 1 : y;
     nw = horizontal ? width : x + width - wx - 1;
     nh = horizontal ? y + height - wy - 1 : height;
-    divide(maze, nx, ny, nw, nh, orientation == 'H' ? 'V' : 'H');
+    maze = divide(maze, nx, ny, nw, nh, orientation == 'H' ? 'V' : 'H');
 }
 
 std::vector<std::vector<char>> createRandomlyGeneratedMaze()
