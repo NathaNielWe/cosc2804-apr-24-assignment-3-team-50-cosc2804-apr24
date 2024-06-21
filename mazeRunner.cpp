@@ -49,6 +49,7 @@ int main(int argc, char* argv[]){
 
             
         case 4:
+            printTeamInfo();    
         case 5:
             printExitMassage();
             exit(1);
