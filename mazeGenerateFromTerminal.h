@@ -300,13 +300,22 @@ std::vector<std::vector<char>> createRandomlyGeneratedMaze()
     //Now that the maze is ready we will call the recursive division function 
         divide(maze, 1, 1, width - 2, height - 2, 'H');
 
-    maze[0][1] = 'S';  // Start point
+    bool hasEntryPoint = false;
+    while(hasEntryPoint == false)
+    {
+        for (int i = 0; i < width; i++)
+        {
+        if(maze[1][i] == '.')
+            {
+                hasEntryPoint = true;
+                maze[0][i]='E';
+            }
+        }
 
+    }
+    
     // Ensure the start and exit points are connected
-    maze[1][2] = '.';
-    maze[2][1] = '.';
-    maze[height - 3][width - 2] = '.';
-    maze[height - 2][width - 3] = '.';
+   
     return maze;
 }   
 
