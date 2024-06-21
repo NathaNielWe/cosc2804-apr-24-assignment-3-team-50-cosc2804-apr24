@@ -10,11 +10,6 @@ void PlacePlayerInsideMaze(std::vector<std::string> Maze,int length, int width, 
 {
     mcpp::MinecraftConnection mc;
     mcpp::Coordinate playerCoords;
-    mcpp::Coordinate buildCoordsOriginal;
-    int playerx = ceil((playerPosX + (width/2))+1);
-    buildCoordsOriginal = mcpp::Coordinate(playerx,playerPosY-1,playerPosZ + length+1);
-
-
 
     playerCoords = mcpp::Coordinate(playerPosX,playerPosY,playerPosZ);
 
@@ -27,19 +22,22 @@ void PlacePlayerInsideMaze(std::vector<std::string> Maze,int length, int width, 
             if(i == 0 || i == length - 1)
             {
                 if(Maze[i][z]== '.')
-                {   
-                    buildCoordsOriginal = buildCoordsOriginal + mcpp::Coordinate(-i-1,0,-z-1);
-                    mc.setPlayerPosition(buildCoordsOriginal);
+                {  
+                    std::cout << "made it" << std::endl;
+                    playerCoords = playerCoords + mcpp::Coordinate(z,0,length-i);
+                    mc.setPlayerPosition(playerCoords);
                 }
             } else {
                 if(Maze[i][0] == '.')
-                {
-                    buildCoordsOriginal = buildCoordsOriginal + mcpp::Coordinate(-i-1,0,-1);
-                    mc.setPlayerPosition(buildCoordsOriginal);
+                {   
+                    width = floor(width/2);
+                    playerCoords = playerCoords + mcpp::Coordinate(width,0,i);
+                    mc.setPlayerPosition(playerCoords);
                 } else if (Maze[i][width-1] == '.')
                 {
-                    buildCoordsOriginal = buildCoordsOriginal + mcpp::Coordinate(-i-1,0,-z-1);
-                    mc.setPlayerPosition(buildCoordsOriginal);
+                    width = floor(width/2);
+                    playerCoords = playerCoords + mcpp::Coordinate(-width,0,i);
+                    mc.setPlayerPosition(playerCoords);
                 }
         }
     }
@@ -129,7 +127,7 @@ void buildMazeInMinecraft(std::vector<std::string> Maze, int playerPosX, int pla
         
     }
 
-
+    PlacePlayerInsideMaze(Maze,length,width,playerPosX,playerPosY,playerPosZ);
         
 
 }
@@ -162,19 +160,7 @@ std::vector<std::string> userCreateAndCheckMaze(long unsigned int width, int len
         }
     }
 
-    for(int i = 0; i < length; ++i)
-    {
-        for(long unsigned int x = 0; x < width; ++x)
-    {
-            std::string stringArray = Maze[i];
-            if(Maze[i][x] != '*' || Maze[i][x] != '.' )
-            {
-                std::cout << "please make sure the chars of the maze are all the same e.g. '*' for walls and '.' for open spaces " << std::endl;
-                userCreateAndCheckMaze(width, length);
-            } 
-            
-       }
-    }
+    
     return Maze;
 }
 
